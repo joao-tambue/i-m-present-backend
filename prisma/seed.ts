@@ -17,7 +17,7 @@ async function main() {
     update: { eventId: event.id, checkedIn: true },
     create: {
       name: "Ana Silva",
-      email: "ana@example.com",
+      email: "ana@gmail.com",
       checkedIn: true,
       eventId: event.id,
     },
