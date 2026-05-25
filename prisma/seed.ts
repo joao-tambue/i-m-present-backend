@@ -24,7 +24,7 @@ async function main() {
   });
 
   await prisma.attendee.upsert({
-    where: { email: "joaotambue13@gmail.com },
+    where: { email: "joaotambue13@gmail.com" },
     update: { eventId: event.id },
     create: {
       name: "Joao Tambue",
