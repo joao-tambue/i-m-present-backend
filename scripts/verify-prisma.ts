@@ -5,7 +5,7 @@ async function main() {
     select: { id: true },
   });
 
-  console.log("✅ Connected");
+  console.log("Connected");
 }
 
 main()
