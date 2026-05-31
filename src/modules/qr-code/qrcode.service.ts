@@ -1,12 +1,19 @@
 import { AppError } from '../../shared/utils/AppError';
+import { generateQRCodeAssets } from './qrcode.generator';
 import { QRCodeRepository } from './qrcode.repository';
 
 const repo = new QRCodeRepository();
 
-function mapQRCode(qrCode: Awaited<ReturnType<QRCodeRepository['ensureActiveForEmployee']>>) {
+type QRCodeEntity = Awaited<ReturnType<QRCodeRepository['ensureActiveForEmployee']>>;
+
+async function mapQRCode(qrCode: QRCodeEntity) {
+  const assets = await generateQRCodeAssets(qrCode.code);
+
   return {
     id: qrCode.id,
     token: qrCode.code,
+    imageDataUrl: assets.imageDataUrl,
+    svg: assets.svg,
     status: qrCode.status,
     issuedAt: qrCode.issuedAt,
     revokedAt: qrCode.revokedAt,
@@ -18,15 +25,15 @@ export class QRCodeService {
   async getMyQRCode(employeeId: string) {
     const qrCode = await repo.findByEmployeeId(employeeId);
     if (!qrCode) {
-      return mapQRCode(await repo.ensureActiveForEmployee(employeeId));
+      return await mapQRCode(await repo.ensureActiveForEmployee(employeeId));
     }
 
-    return mapQRCode(qrCode);
+    return await mapQRCode(qrCode);
   }
 
   async regenerate(employeeId: string) {
     await this.ensureEmployeeExists(employeeId);
-    return mapQRCode(await repo.ensureActiveForEmployee(employeeId));
+    return await mapQRCode(await repo.ensureActiveForEmployee(employeeId));
   }
 
   async revoke(employeeId: string) {
@@ -36,7 +43,7 @@ export class QRCodeService {
       throw new AppError('QR Code do funcionário não encontrado', 404);
     }
 
-    return mapQRCode(await repo.revokeByEmployeeId(employeeId));
+    return await mapQRCode(await repo.revokeByEmployeeId(employeeId));
   }
 
   private async ensureEmployeeExists(employeeId: string) {
