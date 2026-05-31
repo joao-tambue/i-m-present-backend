@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Coordinator'
+export type * from './models/Employee'
 export type * from './models/Event'
 export type * from './models/Attendee'
 export type * from './commonInputTypes'
