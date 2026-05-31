@@ -28,3 +28,21 @@ export const Area = {
 } as const
 
 export type Area = (typeof Area)[keyof typeof Area]
+
+
+export const AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  LATE: 'LATE',
+  ABSENT: 'ABSENT',
+  INCOMPLETE: 'INCOMPLETE'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
+
+export const QRCodeStatus = {
+  ACTIVE: 'ACTIVE',
+  REVOKED: 'REVOKED'
+} as const
+
+export type QRCodeStatus = (typeof QRCodeStatus)[keyof typeof QRCodeStatus]

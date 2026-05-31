@@ -386,6 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Coordinator: 'Coordinator',
   Employee: 'Employee',
+  EmployeeQRCode: 'EmployeeQRCode',
+  AttendanceRecord: 'AttendanceRecord',
+  workSchedule: 'workSchedule',
   Event: 'Event',
   Attendee: 'Attendee'
 } as const
@@ -403,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "coordinator" | "employee" | "event" | "attendee"
+    modelProps: "coordinator" | "employee" | "employeeQRCode" | "attendanceRecord" | "workSchedule" | "event" | "attendee"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -552,6 +555,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EmployeeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EmployeeCountAggregateOutputType> | number
+        }
+      }
+    }
+    EmployeeQRCode: {
+      payload: Prisma.$EmployeeQRCodePayload<ExtArgs>
+      fields: Prisma.EmployeeQRCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmployeeQRCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmployeeQRCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        findFirst: {
+          args: Prisma.EmployeeQRCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmployeeQRCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        findMany: {
+          args: Prisma.EmployeeQRCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>[]
+        }
+        create: {
+          args: Prisma.EmployeeQRCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        createMany: {
+          args: Prisma.EmployeeQRCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmployeeQRCodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>[]
+        }
+        delete: {
+          args: Prisma.EmployeeQRCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        update: {
+          args: Prisma.EmployeeQRCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.EmployeeQRCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmployeeQRCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmployeeQRCodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>[]
+        }
+        upsert: {
+          args: Prisma.EmployeeQRCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmployeeQRCodePayload>
+        }
+        aggregate: {
+          args: Prisma.EmployeeQRCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmployeeQRCode>
+        }
+        groupBy: {
+          args: Prisma.EmployeeQRCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmployeeQRCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmployeeQRCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmployeeQRCodeCountAggregateOutputType> | number
+        }
+      }
+    }
+    AttendanceRecord: {
+      payload: Prisma.$AttendanceRecordPayload<ExtArgs>
+      fields: Prisma.AttendanceRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AttendanceRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AttendanceRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.AttendanceRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AttendanceRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        findMany: {
+          args: Prisma.AttendanceRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>[]
+        }
+        create: {
+          args: Prisma.AttendanceRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        createMany: {
+          args: Prisma.AttendanceRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AttendanceRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.AttendanceRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        update: {
+          args: Prisma.AttendanceRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.AttendanceRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AttendanceRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AttendanceRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.AttendanceRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendanceRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.AttendanceRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttendanceRecord>
+        }
+        groupBy: {
+          args: Prisma.AttendanceRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AttendanceRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceRecordCountAggregateOutputType> | number
+        }
+      }
+    }
+    workSchedule: {
+      payload: Prisma.$workSchedulePayload<ExtArgs>
+      fields: Prisma.workScheduleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.workScheduleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.workScheduleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        findFirst: {
+          args: Prisma.workScheduleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.workScheduleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        findMany: {
+          args: Prisma.workScheduleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>[]
+        }
+        create: {
+          args: Prisma.workScheduleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        createMany: {
+          args: Prisma.workScheduleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.workScheduleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>[]
+        }
+        delete: {
+          args: Prisma.workScheduleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        update: {
+          args: Prisma.workScheduleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        deleteMany: {
+          args: Prisma.workScheduleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.workScheduleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.workScheduleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>[]
+        }
+        upsert: {
+          args: Prisma.workScheduleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$workSchedulePayload>
+        }
+        aggregate: {
+          args: Prisma.WorkScheduleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkSchedule>
+        }
+        groupBy: {
+          args: Prisma.workScheduleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkScheduleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.workScheduleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkScheduleCountAggregateOutputType> | number
         }
       }
     }
@@ -764,11 +989,56 @@ export const EmployeeScalarFieldEnum = {
   area: 'area',
   password: 'password',
   role: 'role',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
+
+
+export const EmployeeQRCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  status: 'status',
+  employeeId: 'employeeId',
+  issuedAt: 'issuedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type EmployeeQRCodeScalarFieldEnum = (typeof EmployeeQRCodeScalarFieldEnum)[keyof typeof EmployeeQRCodeScalarFieldEnum]
+
+
+export const AttendanceRecordScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  date: 'date',
+  checkInAt: 'checkInAt',
+  checkOutAt: 'checkOutAt',
+  checkInMethod: 'checkInMethod',
+  checkOutMethod: 'checkOutMethod',
+  status: 'status',
+  lateMinutes: 'lateMinutes',
+  workedMinutes: 'workedMinutes',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AttendanceRecordScalarFieldEnum = (typeof AttendanceRecordScalarFieldEnum)[keyof typeof AttendanceRecordScalarFieldEnum]
+
+
+export const WorkScheduleScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  expectedCheckIn: 'expectedCheckIn',
+  expectedCheckOut: 'expectedCheckOut',
+  lateToleranceMinutes: 'lateToleranceMinutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkScheduleScalarFieldEnum = (typeof WorkScheduleScalarFieldEnum)[keyof typeof WorkScheduleScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -891,6 +1161,34 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'QRCodeStatus'
+ */
+export type EnumQRCodeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QRCodeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'QRCodeStatus[]'
+ */
+export type ListEnumQRCodeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QRCodeStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus'
+ */
+export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus[]'
+ */
+export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -901,6 +1199,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -1000,6 +1312,9 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   coordinator?: Prisma.CoordinatorOmit
   employee?: Prisma.EmployeeOmit
+  employeeQRCode?: Prisma.EmployeeQRCodeOmit
+  attendanceRecord?: Prisma.AttendanceRecordOmit
+  workSchedule?: Prisma.workScheduleOmit
   event?: Prisma.EventOmit
   attendee?: Prisma.AttendeeOmit
 }

@@ -53,6 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Coordinator: 'Coordinator',
   Employee: 'Employee',
+  EmployeeQRCode: 'EmployeeQRCode',
+  AttendanceRecord: 'AttendanceRecord',
+  workSchedule: 'workSchedule',
   Event: 'Event',
   Attendee: 'Attendee'
 } as const
@@ -95,11 +98,56 @@ export const EmployeeScalarFieldEnum = {
   area: 'area',
   password: 'password',
   role: 'role',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
+
+
+export const EmployeeQRCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  status: 'status',
+  employeeId: 'employeeId',
+  issuedAt: 'issuedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type EmployeeQRCodeScalarFieldEnum = (typeof EmployeeQRCodeScalarFieldEnum)[keyof typeof EmployeeQRCodeScalarFieldEnum]
+
+
+export const AttendanceRecordScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  date: 'date',
+  checkInAt: 'checkInAt',
+  checkOutAt: 'checkOutAt',
+  checkInMethod: 'checkInMethod',
+  checkOutMethod: 'checkOutMethod',
+  status: 'status',
+  lateMinutes: 'lateMinutes',
+  workedMinutes: 'workedMinutes',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AttendanceRecordScalarFieldEnum = (typeof AttendanceRecordScalarFieldEnum)[keyof typeof AttendanceRecordScalarFieldEnum]
+
+
+export const WorkScheduleScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  expectedCheckIn: 'expectedCheckIn',
+  expectedCheckOut: 'expectedCheckOut',
+  lateToleranceMinutes: 'lateToleranceMinutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkScheduleScalarFieldEnum = (typeof WorkScheduleScalarFieldEnum)[keyof typeof WorkScheduleScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {

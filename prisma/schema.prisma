@@ -22,6 +22,18 @@ enum Area {
   OTHER
 }
 
+enum AttendanceStatus {
+  PRESENT
+  LATE
+  ABSENT
+  INCOMPLETE
+}
+
+enum QRCodeStatus {
+  ACTIVE
+  REVOKED
+}
+
 model Coordinator {
   id        String   @id @default(cuid())
   name      String
@@ -43,10 +55,62 @@ model Employee {
   area      Area
   password  String
   role      Role     @default(EMPLOYEE)
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  qrCode    EmployeeQRCode?
+  attendance AttendanceRecord[]
+  schedule  workSchedule?
+
   @@map("employees")
+}
+
+model EmployeeQRCode {
+  id        String   @id @default(cuid())
+  code      String   @unique @default(uuid())
+  status    QRCodeStatus @default(ACTIVE)
+  employeeId String  @unique
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  issuedAt  DateTime @default(now())
+  revokedAt DateTime?
+
+  @@map("employee_qr_codes")
+}
+
+model AttendanceRecord {
+  id         String   @id @default(cuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date       DateTime
+  checkInAt  DateTime?
+  checkOutAt DateTime?
+  checkInMethod String? // "qr_code" ou "manual"
+  checkOutMethod String? // "qr_code" ou "manual"
+  status     AttendanceStatus @default(INCOMPLETE)
+  lateMinutes Int? @default(0) // Minutos de atraso, se aplicável
+  workedMinutes Int?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([employeeId, date])
+  @@index([employeeId])
+  @@index([date])
+  @@map("attendance_records")
+}
+
+model workSchedule {
+  id         String   @id @default(cuid())
+  employeeId String   @unique
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  expectedCheckIn String
+  expectedCheckOut String
+  lateToleranceMinutes Int @default(15) // Tolerância de atraso em minutos
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("work_schedules")
 }
 
 model Event {
