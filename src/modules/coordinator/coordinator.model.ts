@@ -27,13 +27,13 @@ export interface WorkScheduleDTO {
   id: string;
   expectedCheckIn: string;   // "08:00"
   expectedCheckOut: string;  // "17:00"
-  lateToleranceMin: number;
+  lateToleranceMinutes: number;
 }
 
 export interface UpsertScheduleDTO {
   expectedCheckIn: string;
   expectedCheckOut: string;
-  lateToleranceMin?: number;
+  lateToleranceMinutes?: number;
 }
 
 export interface QRCodeSummaryDTO {

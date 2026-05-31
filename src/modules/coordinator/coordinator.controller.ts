@@ -26,7 +26,7 @@ export class CoordinatorController {
   // GET /coordinator/employees/:id
   async getEmployee(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      const employee = await service.getEmployee(req.params['id']!);
+      const employee = await service.getEmployee(req.params['id'] as string);
       res.json(ApiResponse.ok('Funcionário obtido', employee));
     } catch (err) {
       next(err);
@@ -36,7 +36,7 @@ export class CoordinatorController {
   // PATCH /coordinator/employees/:id
   async updateEmployee(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      const updated = await service.updateEmployee(req.params['id']!, req.body);
+      const updated = await service.updateEmployee(req.params['id'] as string, req.body);
       res.json(ApiResponse.ok('Funcionário actualizado', updated));
     } catch (err) {
       next(err);
@@ -46,7 +46,7 @@ export class CoordinatorController {
   // PATCH /coordinator/employees/:id/activate
   async activateEmployee(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      await service.toggleEmployeeActive(req.params['id']!, true);
+      await service.toggleEmployeeActive(req.params['id'] as string, true);
       res.json(ApiResponse.ok('Funcionário activado'));
     } catch (err) {
       next(err);
@@ -56,7 +56,7 @@ export class CoordinatorController {
   // PATCH /coordinator/employees/:id/deactivate
   async deactivateEmployee(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      await service.toggleEmployeeActive(req.params['id']!, false);
+      await service.toggleEmployeeActive(req.params['id'] as string, false);
       res.json(ApiResponse.ok('Funcionário desactivado'));
     } catch (err) {
       next(err);
@@ -76,7 +76,7 @@ export class CoordinatorController {
   // PUT /coordinator/employees/:id/schedule
   async upsertSchedule(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      const schedule = await service.upsertSchedule(req.params['id']!, req.body);
+      const schedule = await service.upsertSchedule(req.params['id'] as string, req.body);
       res.json(ApiResponse.ok('Horário guardado', schedule));
     } catch (err) {
       next(err);
@@ -86,7 +86,7 @@ export class CoordinatorController {
   // DELETE /coordinator/employees/:id/schedule
   async deleteSchedule(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-      await service.deleteSchedule(req.params['id']!);
+      await service.deleteSchedule(req.params['id'] as string);
       res.json(ApiResponse.ok('Horário removido'));
     } catch (err) {
       next(err);
@@ -118,7 +118,7 @@ export class CoordinatorController {
   async getEmployeeHistory(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const { from, to } = req.query as { from: string; to: string };
-      const history = await service.getEmployeeHistory(req.params['id']!, from, to);
+      const history = await service.getEmployeeHistory(req.params['id'] as string, from, to);
       res.json(ApiResponse.ok('Histórico obtido', history));
     } catch (err) {
       next(err);
@@ -139,7 +139,7 @@ export class CoordinatorController {
   async addNote(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
       const { notes } = req.body as { notes: string };
-      const record = await service.addNote(req.params['recordId']!, notes);
+      const record = await service.addNote(req.params['recordId'] as string, notes);
       res.json(ApiResponse.ok('Nota adicionada', record));
     } catch (err) {
       next(err);

@@ -9,6 +9,9 @@ import { swaggerSpec } from './config/swagger';
 import { errorHandler } from './middlewares/errorHandler';
 import { notFound } from './middlewares/notFound';
 import { authRoutes } from './modules/auth/auth.routes';
+import { attendanceRoutes } from './modules/attendance/attendance.routes';
+import { coordinatorRoutes } from './modules/coordinator/coordinator.routes';
+import { qrCodeRoutes } from './modules/qr-code/qrcode.routes';
 import { userRoutes } from './modules/users/user.routes';
 
 export const createApp = (): Application => {
@@ -53,6 +56,9 @@ export const createApp = (): Application => {
   });
 
   app.use('/api/v1/auth', authRoutes);
+  app.use('/api/v1/attendance', attendanceRoutes);
+  app.use('/api/v1/coordinator', coordinatorRoutes);
+  app.use('/api/v1/qr-code', qrCodeRoutes);
   app.use('/api/v1/users', userRoutes); // legado — remover quando não for necessário
 
   app.use(notFound);

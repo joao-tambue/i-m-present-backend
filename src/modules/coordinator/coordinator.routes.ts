@@ -219,7 +219,7 @@ coordinatorRoutes.get('/stats', ctrl.getStats.bind(ctrl));
  *           example:
  *             expectedCheckIn: "08:00"
  *             expectedCheckOut: "17:00"
- *             lateToleranceMin: 15
+ *             lateToleranceMinutes: 15
  *     responses:
  *       200:
  *         description: Horário guardado

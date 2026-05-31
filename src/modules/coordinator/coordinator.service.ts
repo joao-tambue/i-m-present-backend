@@ -57,7 +57,7 @@ export class CoordinatorService {
             id: e.schedule.id,
             expectedCheckIn: e.schedule.expectedCheckIn,
             expectedCheckOut: e.schedule.expectedCheckOut,
-            lateToleranceMin: e.schedule.lateToleranceMin,
+            lateToleranceMinutes: e.schedule.lateToleranceMinutes,
           }
         : null,
       qrCode: e.qrCode
@@ -109,6 +109,13 @@ export class CoordinatorService {
       throw new AppError('Formato de hora inválido. Use HH:MM (ex: 08:00)', 422);
     }
 
+    if (
+      data.lateToleranceMinutes !== undefined
+      && (!Number.isInteger(data.lateToleranceMinutes) || data.lateToleranceMinutes < 0)
+    ) {
+      throw new AppError('A tolerância de atraso deve ser um número inteiro positivo', 422);
+    }
+
     return repo.upsertSchedule(employeeId, data);
   }
 
@@ -141,9 +148,10 @@ export class CoordinatorService {
 
     const present = byStatus['PRESENT'] ?? 0;
     const late = byStatus['LATE'] ?? 0;
-    const absent = byStatus['ABSENT'] ?? 0;
+    const recordedAbsent = byStatus['ABSENT'] ?? 0;
     const incomplete = byStatus['INCOMPLETE'] ?? 0;
-    const total = present + late + absent + incomplete;
+    const registered = present + late + recordedAbsent + incomplete;
+    const absent = recordedAbsent + Math.max(totalActive - registered, 0);
 
     return {
       date: date.toISOString().split('T')[0],
