@@ -28,6 +28,21 @@ export type Coordinator = Prisma.CoordinatorModel
  */
 export type Employee = Prisma.EmployeeModel
 /**
+ * Model EmployeeQRCode
+ * 
+ */
+export type EmployeeQRCode = Prisma.EmployeeQRCodeModel
+/**
+ * Model AttendanceRecord
+ * 
+ */
+export type AttendanceRecord = Prisma.AttendanceRecordModel
+/**
+ * Model workSchedule
+ * 
+ */
+export type workSchedule = Prisma.workScheduleModel
+/**
  * Model Event
  * 
  */

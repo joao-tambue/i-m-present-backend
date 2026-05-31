@@ -403,10 +403,6 @@ export type AttendeeUncheckedUpdateManyWithoutEventNestedInput = {
   deleteMany?: Prisma.AttendeeScalarWhereInput | Prisma.AttendeeScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type AttendeeCreateWithoutEventInput = {
   id?: string
   name: string

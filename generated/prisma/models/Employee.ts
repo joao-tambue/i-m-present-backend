@@ -32,6 +32,7 @@ export type EmployeeMinAggregateOutputType = {
   area: $Enums.Area | null
   password: string | null
   role: $Enums.Role | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +45,7 @@ export type EmployeeMaxAggregateOutputType = {
   area: $Enums.Area | null
   password: string | null
   role: $Enums.Role | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +58,7 @@ export type EmployeeCountAggregateOutputType = {
   area: number
   password: number
   role: number
+  isActive: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +73,7 @@ export type EmployeeMinAggregateInputType = {
   area?: true
   password?: true
   role?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +86,7 @@ export type EmployeeMaxAggregateInputType = {
   area?: true
   password?: true
   role?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type EmployeeCountAggregateInputType = {
   area?: true
   password?: true
   role?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +185,7 @@ export type EmployeeGroupByOutputType = {
   area: $Enums.Area
   password: string
   role: $Enums.Role
+  isActive: boolean
   createdAt: Date
   updatedAt: Date
   _count: EmployeeCountAggregateOutputType | null
@@ -212,8 +219,12 @@ export type EmployeeWhereInput = {
   area?: Prisma.EnumAreaFilter<"Employee"> | $Enums.Area
   password?: Prisma.StringFilter<"Employee"> | string
   role?: Prisma.EnumRoleFilter<"Employee"> | $Enums.Role
+  isActive?: Prisma.BoolFilter<"Employee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
+  qrCode?: Prisma.XOR<Prisma.EmployeeQRCodeNullableScalarRelationFilter, Prisma.EmployeeQRCodeWhereInput> | null
+  attendance?: Prisma.AttendanceRecordListRelationFilter
+  schedule?: Prisma.XOR<Prisma.WorkScheduleNullableScalarRelationFilter, Prisma.workScheduleWhereInput> | null
 }
 
 export type EmployeeOrderByWithRelationInput = {
@@ -224,8 +235,12 @@ export type EmployeeOrderByWithRelationInput = {
   area?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  qrCode?: Prisma.EmployeeQRCodeOrderByWithRelationInput
+  attendance?: Prisma.AttendanceRecordOrderByRelationAggregateInput
+  schedule?: Prisma.workScheduleOrderByWithRelationInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -239,8 +254,12 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   area?: Prisma.EnumAreaFilter<"Employee"> | $Enums.Area
   password?: Prisma.StringFilter<"Employee"> | string
   role?: Prisma.EnumRoleFilter<"Employee"> | $Enums.Role
+  isActive?: Prisma.BoolFilter<"Employee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
+  qrCode?: Prisma.XOR<Prisma.EmployeeQRCodeNullableScalarRelationFilter, Prisma.EmployeeQRCodeWhereInput> | null
+  attendance?: Prisma.AttendanceRecordListRelationFilter
+  schedule?: Prisma.XOR<Prisma.WorkScheduleNullableScalarRelationFilter, Prisma.workScheduleWhereInput> | null
 }, "id" | "email">
 
 export type EmployeeOrderByWithAggregationInput = {
@@ -251,6 +270,7 @@ export type EmployeeOrderByWithAggregationInput = {
   area?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmployeeCountOrderByAggregateInput
@@ -269,6 +289,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   area?: Prisma.EnumAreaWithAggregatesFilter<"Employee"> | $Enums.Area
   password?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"Employee"> | $Enums.Role
+  isActive?: Prisma.BoolWithAggregatesFilter<"Employee"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
 }
@@ -281,8 +302,12 @@ export type EmployeeCreateInput = {
   area: $Enums.Area
   password: string
   role?: $Enums.Role
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeCreateNestedOneWithoutEmployeeInput
+  attendance?: Prisma.AttendanceRecordCreateNestedManyWithoutEmployeeInput
+  schedule?: Prisma.workScheduleCreateNestedOneWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateInput = {
@@ -293,8 +318,12 @@ export type EmployeeUncheckedCreateInput = {
   area: $Enums.Area
   password: string
   role?: $Enums.Role
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedCreateNestedOneWithoutEmployeeInput
+  attendance?: Prisma.AttendanceRecordUncheckedCreateNestedManyWithoutEmployeeInput
+  schedule?: Prisma.workScheduleUncheckedCreateNestedOneWithoutEmployeeInput
 }
 
 export type EmployeeUpdateInput = {
@@ -305,8 +334,12 @@ export type EmployeeUpdateInput = {
   area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUpdateOneWithoutEmployeeNestedInput
+  attendance?: Prisma.AttendanceRecordUpdateManyWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUpdateOneWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateInput = {
@@ -317,8 +350,12 @@ export type EmployeeUncheckedUpdateInput = {
   area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedUpdateOneWithoutEmployeeNestedInput
+  attendance?: Prisma.AttendanceRecordUncheckedUpdateManyWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUncheckedUpdateOneWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyInput = {
@@ -329,6 +366,7 @@ export type EmployeeCreateManyInput = {
   area: $Enums.Area
   password: string
   role?: $Enums.Role
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -341,6 +379,7 @@ export type EmployeeUpdateManyMutationInput = {
   area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -353,6 +392,7 @@ export type EmployeeUncheckedUpdateManyInput = {
   area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -365,6 +405,7 @@ export type EmployeeCountOrderByAggregateInput = {
   area?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -377,6 +418,7 @@ export type EmployeeMaxOrderByAggregateInput = {
   area?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -389,14 +431,323 @@ export type EmployeeMinOrderByAggregateInput = {
   area?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type EmployeeScalarRelationFilter = {
+  is?: Prisma.EmployeeWhereInput
+  isNot?: Prisma.EmployeeWhereInput
 }
 
 export type EnumAreaFieldUpdateOperationsInput = {
   set?: $Enums.Area
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type EmployeeCreateNestedOneWithoutQrCodeInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutQrCodeInput, Prisma.EmployeeUncheckedCreateWithoutQrCodeInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutQrCodeInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutQrCodeNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutQrCodeInput, Prisma.EmployeeUncheckedCreateWithoutQrCodeInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutQrCodeInput
+  upsert?: Prisma.EmployeeUpsertWithoutQrCodeInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutQrCodeInput, Prisma.EmployeeUpdateWithoutQrCodeInput>, Prisma.EmployeeUncheckedUpdateWithoutQrCodeInput>
+}
+
+export type EmployeeCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutAttendanceInput, Prisma.EmployeeUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutAttendanceInput, Prisma.EmployeeUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.EmployeeUpsertWithoutAttendanceInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutAttendanceInput, Prisma.EmployeeUpdateWithoutAttendanceInput>, Prisma.EmployeeUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type EmployeeCreateNestedOneWithoutScheduleInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutScheduleInput, Prisma.EmployeeUncheckedCreateWithoutScheduleInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutScheduleInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutScheduleNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutScheduleInput, Prisma.EmployeeUncheckedCreateWithoutScheduleInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutScheduleInput
+  upsert?: Prisma.EmployeeUpsertWithoutScheduleInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutScheduleInput, Prisma.EmployeeUpdateWithoutScheduleInput>, Prisma.EmployeeUncheckedUpdateWithoutScheduleInput>
+}
+
+export type EmployeeCreateWithoutQrCodeInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attendance?: Prisma.AttendanceRecordCreateNestedManyWithoutEmployeeInput
+  schedule?: Prisma.workScheduleCreateNestedOneWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutQrCodeInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attendance?: Prisma.AttendanceRecordUncheckedCreateNestedManyWithoutEmployeeInput
+  schedule?: Prisma.workScheduleUncheckedCreateNestedOneWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutQrCodeInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutQrCodeInput, Prisma.EmployeeUncheckedCreateWithoutQrCodeInput>
+}
+
+export type EmployeeUpsertWithoutQrCodeInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutQrCodeInput, Prisma.EmployeeUncheckedUpdateWithoutQrCodeInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutQrCodeInput, Prisma.EmployeeUncheckedCreateWithoutQrCodeInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutQrCodeInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutQrCodeInput, Prisma.EmployeeUncheckedUpdateWithoutQrCodeInput>
+}
+
+export type EmployeeUpdateWithoutQrCodeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendance?: Prisma.AttendanceRecordUpdateManyWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUpdateOneWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutQrCodeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendance?: Prisma.AttendanceRecordUncheckedUpdateManyWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUncheckedUpdateOneWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutAttendanceInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeCreateNestedOneWithoutEmployeeInput
+  schedule?: Prisma.workScheduleCreateNestedOneWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutAttendanceInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedCreateNestedOneWithoutEmployeeInput
+  schedule?: Prisma.workScheduleUncheckedCreateNestedOneWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutAttendanceInput, Prisma.EmployeeUncheckedCreateWithoutAttendanceInput>
+}
+
+export type EmployeeUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutAttendanceInput, Prisma.EmployeeUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutAttendanceInput, Prisma.EmployeeUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutAttendanceInput, Prisma.EmployeeUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type EmployeeUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUpdateOneWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUpdateOneWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedUpdateOneWithoutEmployeeNestedInput
+  schedule?: Prisma.workScheduleUncheckedUpdateOneWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutScheduleInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeCreateNestedOneWithoutEmployeeInput
+  attendance?: Prisma.AttendanceRecordCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutScheduleInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  area: $Enums.Area
+  password: string
+  role?: $Enums.Role
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedCreateNestedOneWithoutEmployeeInput
+  attendance?: Prisma.AttendanceRecordUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutScheduleInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutScheduleInput, Prisma.EmployeeUncheckedCreateWithoutScheduleInput>
+}
+
+export type EmployeeUpsertWithoutScheduleInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutScheduleInput, Prisma.EmployeeUncheckedUpdateWithoutScheduleInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutScheduleInput, Prisma.EmployeeUncheckedCreateWithoutScheduleInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutScheduleInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutScheduleInput, Prisma.EmployeeUncheckedUpdateWithoutScheduleInput>
+}
+
+export type EmployeeUpdateWithoutScheduleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUpdateOneWithoutEmployeeNestedInput
+  attendance?: Prisma.AttendanceRecordUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutScheduleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.EnumAreaFieldUpdateOperationsInput | $Enums.Area
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrCode?: Prisma.EmployeeQRCodeUncheckedUpdateOneWithoutEmployeeNestedInput
+  attendance?: Prisma.AttendanceRecordUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+
+/**
+ * Count Type EmployeeCountOutputType
+ */
+
+export type EmployeeCountOutputType = {
+  attendance: number
+}
+
+export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attendance?: boolean | EmployeeCountOutputTypeCountAttendanceArgs
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmployeeCountOutputType
+   */
+  select?: Prisma.EmployeeCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceRecordWhereInput
+}
 
 
 export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -407,8 +758,13 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   area?: boolean
   password?: boolean
   role?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  qrCode?: boolean | Prisma.Employee$qrCodeArgs<ExtArgs>
+  attendance?: boolean | Prisma.Employee$attendanceArgs<ExtArgs>
+  schedule?: boolean | Prisma.Employee$scheduleArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
 export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -419,6 +775,7 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   area?: boolean
   password?: boolean
   role?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["employee"]>
@@ -431,6 +788,7 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   area?: boolean
   password?: boolean
   role?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["employee"]>
@@ -443,15 +801,28 @@ export type EmployeeSelectScalar = {
   area?: boolean
   password?: boolean
   role?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "area" | "password" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "area" | "password" | "role" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
+export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  qrCode?: boolean | Prisma.Employee$qrCodeArgs<ExtArgs>
+  attendance?: boolean | Prisma.Employee$attendanceArgs<ExtArgs>
+  schedule?: boolean | Prisma.Employee$scheduleArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Employee"
-  objects: {}
+  objects: {
+    qrCode: Prisma.$EmployeeQRCodePayload<ExtArgs> | null
+    attendance: Prisma.$AttendanceRecordPayload<ExtArgs>[]
+    schedule: Prisma.$workSchedulePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -460,6 +831,7 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     area: $Enums.Area
     password: string
     role: $Enums.Role
+    isActive: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["employee"]>
@@ -856,6 +1228,9 @@ readonly fields: EmployeeFieldRefs;
  */
 export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  qrCode<T extends Prisma.Employee$qrCodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$qrCodeArgs<ExtArgs>>): Prisma.Prisma__EmployeeQRCodeClient<runtime.Types.Result.GetResult<Prisma.$EmployeeQRCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  attendance<T extends Prisma.Employee$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendanceRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  schedule<T extends Prisma.Employee$scheduleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$scheduleArgs<ExtArgs>>): Prisma.Prisma__workScheduleClient<runtime.Types.Result.GetResult<Prisma.$workSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -892,6 +1267,7 @@ export interface EmployeeFieldRefs {
   readonly area: Prisma.FieldRef<"Employee", 'Area'>
   readonly password: Prisma.FieldRef<"Employee", 'String'>
   readonly role: Prisma.FieldRef<"Employee", 'Role'>
+  readonly isActive: Prisma.FieldRef<"Employee", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Employee", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Employee", 'DateTime'>
 }
@@ -911,6 +1287,10 @@ export type EmployeeFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * Filter, which Employee to fetch.
    */
   where: Prisma.EmployeeWhereUniqueInput
@@ -929,6 +1309,10 @@ export type EmployeeFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * Filter, which Employee to fetch.
    */
   where: Prisma.EmployeeWhereUniqueInput
@@ -946,6 +1330,10 @@ export type EmployeeFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Employee
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
   /**
    * Filter, which Employee to fetch.
    */
@@ -995,6 +1383,10 @@ export type EmployeeFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * Filter, which Employee to fetch.
    */
   where?: Prisma.EmployeeWhereInput
@@ -1043,6 +1435,10 @@ export type EmployeeFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * Filter, which Employees to fetch.
    */
   where?: Prisma.EmployeeWhereInput
@@ -1085,6 +1481,10 @@ export type EmployeeCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Employee
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
   /**
    * The data needed to create a Employee.
    */
@@ -1133,6 +1533,10 @@ export type EmployeeUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Employee
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
   /**
    * The data needed to update a Employee.
    */
@@ -1200,6 +1604,10 @@ export type EmployeeUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * The filter to search for the Employee to update in case it exists.
    */
   where: Prisma.EmployeeWhereUniqueInput
@@ -1226,6 +1634,10 @@ export type EmployeeDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  /**
    * Filter which Employee to delete.
    */
   where: Prisma.EmployeeWhereUniqueInput
@@ -1246,6 +1658,68 @@ export type EmployeeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Employee.qrCode
+ */
+export type Employee$qrCodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmployeeQRCode
+   */
+  select?: Prisma.EmployeeQRCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmployeeQRCode
+   */
+  omit?: Prisma.EmployeeQRCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeQRCodeInclude<ExtArgs> | null
+  where?: Prisma.EmployeeQRCodeWhereInput
+}
+
+/**
+ * Employee.attendance
+ */
+export type Employee$attendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AttendanceRecord
+   */
+  select?: Prisma.AttendanceRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AttendanceRecord
+   */
+  omit?: Prisma.AttendanceRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceRecordInclude<ExtArgs> | null
+  where?: Prisma.AttendanceRecordWhereInput
+  orderBy?: Prisma.AttendanceRecordOrderByWithRelationInput | Prisma.AttendanceRecordOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceRecordScalarFieldEnum | Prisma.AttendanceRecordScalarFieldEnum[]
+}
+
+/**
+ * Employee.schedule
+ */
+export type Employee$scheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the workSchedule
+   */
+  select?: Prisma.workScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the workSchedule
+   */
+  omit?: Prisma.workScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.workScheduleInclude<ExtArgs> | null
+  where?: Prisma.workScheduleWhereInput
+}
+
+/**
  * Employee without action
  */
 export type EmployeeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1257,4 +1731,8 @@ export type EmployeeDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Employee
    */
   omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
 }

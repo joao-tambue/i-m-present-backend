@@ -10,6 +10,9 @@
  */
 export type * from './models/Coordinator'
 export type * from './models/Employee'
+export type * from './models/EmployeeQRCode'
+export type * from './models/AttendanceRecord'
+export type * from './models/workSchedule'
 export type * from './models/Event'
 export type * from './models/Attendee'
 export type * from './commonInputTypes'

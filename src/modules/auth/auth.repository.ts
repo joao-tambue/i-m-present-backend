@@ -39,6 +39,9 @@ export class EmployeeRepository {
         phone: data.phone,
         area: data.area,
         password: data.password,
+        qrCode: {
+          create: {},
+        },
       },
     });
   }

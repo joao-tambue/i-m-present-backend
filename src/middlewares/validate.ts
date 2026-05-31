@@ -26,10 +26,8 @@ export const registerEmployeeSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres').trim(),
   email: z.string().email('Email inválido').toLowerCase(),
   phone: phoneSchema,
-  area: z.nativeEnum(Area, {
-    errorMap: () => ({
-      message: `Área inválida. Valores aceites: ${Object.values(Area).join(', ')}`,
-    }),
+  area: z.enum(Object.values(Area) as [Area, ...Area[]], {
+    error: `Área inválida. Valores aceites: ${Object.values(Area).join(', ')}`,
   }),
   password: passwordSchema,
 });
