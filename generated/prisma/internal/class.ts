@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// Starter models - replace with your own\nmodel Event {\n  id          String     @id @default(cuid())\n  name        String\n  slug        String     @unique\n  startsAt    DateTime\n  description String?\n  attendees   Attendee[]\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n}\n\nmodel Attendee {\n  id        String   @id @default(cuid())\n  name      String\n  email     String   @unique\n  checkedIn Boolean  @default(false)\n  eventId   String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([eventId])\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Role {\n  COORDINATOR\n  EMPLOYEE\n}\n\nenum Area {\n  DEV_FULLSTACK\n  AI_ENGINEER\n  FRONTEND_ENGINEER\n  BACKEND_ENGINEER\n  DEVOPS\n  INFRASTRUCTURE\n  OTHER\n}\n\nmodel Coordinator {\n  id        String   @id @default(cuid())\n  name      String\n  email     String   @unique\n  phone     String\n  password  String\n  role      Role     @default(COORDINATOR)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"coordinators\")\n}\n\nmodel Employee {\n  id        String   @id @default(cuid())\n  name      String\n  email     String   @unique\n  phone     String\n  area      Area\n  password  String\n  role      Role     @default(EMPLOYEE)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"employees\")\n}\n\nmodel Event {\n  id          String     @id @default(cuid())\n  name        String\n  slug        String     @unique\n  startsAt    DateTime\n  description String?\n  attendees   Attendee[]\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n}\n\nmodel Attendee {\n  id        String   @id @default(cuid())\n  name      String\n  email     String   @unique\n  checkedIn Boolean  @default(false)\n  eventId   String\n  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([eventId])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Event\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"startsAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"attendees\",\"kind\":\"object\",\"type\":\"Attendee\",\"relationName\":\"AttendeeToEvent\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Attendee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"checkedIn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"AttendeeToEvent\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Coordinator\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"coordinators\"},\"Employee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"area\",\"kind\":\"enum\",\"type\":\"Area\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"employees\"},\"Event\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"startsAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"attendees\",\"kind\":\"object\",\"type\":\"Attendee\",\"relationName\":\"AttendeeToEvent\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Attendee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"checkedIn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"AttendeeToEvent\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Events
-   * const events = await prisma.event.findMany()
+   * // Fetch zero or more Coordinators
+   * const coordinators = await prisma.coordinator.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Events
- * const events = await prisma.event.findMany()
+ * // Fetch zero or more Coordinators
+ * const coordinators = await prisma.coordinator.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -175,6 +175,26 @@ export interface PrismaClient<
   }>>
 
       /**
+   * `prisma.coordinator`: Exposes CRUD operations for the **Coordinator** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Coordinators
+    * const coordinators = await prisma.coordinator.findMany()
+    * ```
+    */
+  get coordinator(): Prisma.CoordinatorDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.employee`: Exposes CRUD operations for the **Employee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Employees
+    * const employees = await prisma.employee.findMany()
+    * ```
+    */
+  get employee(): Prisma.EmployeeDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.event`: Exposes CRUD operations for the **Event** model.
     * Example usage:
     * ```ts

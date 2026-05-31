@@ -7,7 +7,48 @@ datasource db {
   provider = "postgresql"
 }
 
-// Starter models — replace with your own
+enum Role {
+  COORDINATOR
+  EMPLOYEE
+}
+
+enum Area {
+  DEV_FULLSTACK
+  AI_ENGINEER
+  FRONTEND_ENGINEER
+  BACKEND_ENGINEER
+  DEVOPS
+  INFRASTRUCTURE
+  OTHER
+}
+
+model Coordinator {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  password  String
+  role      Role     @default(COORDINATOR)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("coordinators")
+}
+
+model Employee {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  area      Area
+  password  String
+  role      Role     @default(EMPLOYEE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("employees")
+}
+
 model Event {
   id          String     @id @default(cuid())
   name        String
@@ -31,3 +72,4 @@ model Attendee {
 
   @@index([eventId])
 }
+
