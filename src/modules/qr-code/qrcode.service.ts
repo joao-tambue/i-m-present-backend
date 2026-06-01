@@ -22,6 +22,41 @@ async function mapQRCode(qrCode: QRCodeEntity) {
 }
 
 export class QRCodeService {
+  async list(page: number = 1, limit: number = 20, search?: string) {
+    const result = await repo.listAll(page, limit, search);
+
+    const qrCodesWithDetails = result.qrCodes.map((qrCode) => ({
+      id: qrCode.id,
+      code: qrCode.code,
+      status: qrCode.status,
+      issuedAt: qrCode.issuedAt,
+      revokedAt: qrCode.revokedAt,
+      employeeId: qrCode.employee.id,
+      employeeName: qrCode.employee.name,
+      employeeEmail: qrCode.employee.email,
+    }));
+
+    return {
+      data: qrCodesWithDetails,
+      meta: {
+        total: result.total,
+        page: result.page,
+        limit: result.limit,
+        totalPages: Math.ceil(result.total / result.limit),
+      },
+    };
+  }
+
+  async getByEmployeeId(employeeId: string) {
+    await this.ensureEmployeeExists(employeeId);
+    const qrCode = await repo.findByEmployeeId(employeeId);
+    if (!qrCode) {
+      return await mapQRCode(await repo.ensureActiveForEmployee(employeeId));
+    }
+
+    return await mapQRCode(qrCode);
+  }
+
   async getMyQRCode(employeeId: string) {
     const qrCode = await repo.findByEmployeeId(employeeId);
     if (!qrCode) {

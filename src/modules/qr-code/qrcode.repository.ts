@@ -21,6 +21,35 @@ export class QRCodeRepository {
     });
   }
 
+  async listAll(page: number = 1, limit: number = 20, search?: string) {
+    const skip = (page - 1) * limit;
+
+    const where: Record<string, unknown> = {};
+    if (search) {
+      where['OR'] = [
+        { employee: { name: { contains: search, mode: 'insensitive' } } },
+        { employee: { email: { contains: search, mode: 'insensitive' } } },
+      ];
+    }
+
+    const [qrCodes, total] = await Promise.all([
+      prisma.employeeQRCode.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { issuedAt: 'desc' },
+        include: {
+          employee: {
+            select: { id: true, name: true, email: true },
+          },
+        },
+      }),
+      prisma.employeeQRCode.count({ where }),
+    ]);
+
+    return { qrCodes, total, page, limit };
+  }
+
   async ensureActiveForEmployee(employeeId: string) {
     return prisma.employeeQRCode.upsert({
       where: { employeeId },
